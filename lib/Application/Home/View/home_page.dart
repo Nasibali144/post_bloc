@@ -10,6 +10,9 @@ class HomePage extends StatelessWidget {
     context.read<HomeBloc>().add(HomePostGetEvent());
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Posts Bloc"),
+      ),
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           if (state is HomePostGetState) {

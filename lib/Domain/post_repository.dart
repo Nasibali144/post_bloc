@@ -17,7 +17,7 @@ class PostRepository {
     String? response = await networkProvider.GET(ApiConstants.baseUrl, ApiConstants.apiPost);
 
     if(response != null) {
-      List<Map<String, dynamic>> json = jsonDecode(response);
+      List json = jsonDecode(response);
       list = json.map((element) => Post.fromJson(element)).toList();
     }
 
