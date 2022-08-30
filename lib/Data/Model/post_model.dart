@@ -1,5 +1,5 @@
 class Post {
-  late int id;
+  late String id;
   late String title;
   late String body;
   late int userId;

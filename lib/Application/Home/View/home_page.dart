@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:post_bloc/Application/Home/Bloc/home_bloc.dart';
 
 class HomePage extends StatelessWidget {
@@ -19,20 +20,54 @@ class HomePage extends StatelessWidget {
             return ListView.builder(
               itemCount: state.items.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                    state.items[index].title,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+                return Slidable(
+                  key: UniqueKey(),
+                  startActionPane: ActionPane(
+                    extentRatio: 0.25,
+                    motion: const ScrollMotion(),
+                    children: [
+                      SlidableAction(
+                        onPressed: (context) {},
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        icon: Icons.update,
+                      ),
+                    ],
                   ),
-                  subtitle: Text(
-                    state.items[index].body,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                  endActionPane: ActionPane(
+                    extentRatio: 0.5,
+                    motion: const ScrollMotion(),
+                    children: [
+                      SlidableAction(
+                        onPressed: (context) {
+                          // context
+                          //     .read<HomeBloc>()
+                          //     .add(HomeDeleteEvent(id: state.items[index].id));
+                        },
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                        icon: Icons.delete_outline,
+                      ),
+                    ],
+                  ),
+                  child: Card(
+                    elevation: 5,
+                    child: ListTile(
+                      title: Text(
+                        state.items[index].title,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      subtitle: Text(
+                        state.items[index].body,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ),
                 );
