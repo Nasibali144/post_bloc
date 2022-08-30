@@ -93,6 +93,12 @@ class HomePage extends StatelessWidget {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.read<HomeBloc>().add(HomeCreatePostEvent(context));
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

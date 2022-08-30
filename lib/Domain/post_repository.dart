@@ -28,4 +28,15 @@ class PostRepository {
     String? response = await networkProvider.DELETE(ApiConstants.baseUrl, ApiConstants.apiOnePost + id);
     return response != null;
   }
+
+  Future<bool> createPost(String title, String body, int userId) async {
+    Map<String, dynamic> json = {
+      "title": title,
+      "body": body,
+      "userId": userId,
+    };
+
+    String? response = await networkProvider.POST(ApiConstants.baseUrl, ApiConstants.apiPost, json);
+    return response != null;
+  }
 }
