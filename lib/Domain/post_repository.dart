@@ -23,4 +23,9 @@ class PostRepository {
 
     return list;
   }
+
+  Future<bool> deletePost(String id) async {
+    String? response = await networkProvider.DELETE(ApiConstants.baseUrl, ApiConstants.apiOnePost + id);
+    return response != null;
+  }
 }

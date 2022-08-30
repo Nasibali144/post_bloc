@@ -8,3 +8,12 @@ class HomePostGetEvent extends HomeEvent {
   @override
   List<Object?> get props => [];
 }
+
+class HomePostDeleteEvent extends HomeEvent {
+  final String id;
+
+  @override
+  List<Object> get props => [id];
+
+  const HomePostDeleteEvent(this.id);
+}

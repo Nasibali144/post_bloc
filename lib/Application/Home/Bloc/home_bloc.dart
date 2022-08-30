@@ -10,12 +10,25 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   PostRepository postRepository = PostRepository.instance;
 
-  HomeBloc() : super(const HomeInitialState([])) {
-    on<HomePostGetEvent>(getPosts);
+  HomeBloc() : super(const HomeInitialState([], true)) {
+    on<HomePostGetEvent>(_getPosts);
+    on<HomePostDeleteEvent>(_deletePost);
   }
 
-  Future<void> getPosts(HomePostGetEvent event, Emitter<HomeState> emit) async {
+  Future<void> _getPosts(HomePostGetEvent event, Emitter<HomeState> emit) async {
     var result = await postRepository.getAllPost();
-    emit(HomePostGetState(result));
+    emit(HomePostGetState(result, false));
+  }
+
+  Future<void> _deletePost(HomePostDeleteEvent event, Emitter<HomeState> emit) async {
+    emit(HomeInitialState(state.items, true));
+
+    var result = await postRepository.deletePost(event.id);
+    if(result) {
+      state.items.removeWhere((element) => element.id == event.id);
+      emit(HomeDeleteSuccessState(state.items, false));
+    } else {
+      emit(HomeErrorState(state.items, false));
+    }
   }
 }
